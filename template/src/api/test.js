@@ -1,5 +1,5 @@
 import fetch from 'utils/fetch'
-import store from 'store'
+// import store from 'store'
 
 
 export function test () {

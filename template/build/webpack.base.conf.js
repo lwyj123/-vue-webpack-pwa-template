@@ -6,6 +6,8 @@ var vueLoaderConfig = require('./vue-loader.conf')
 // PWA part
 const WorkBoxPlugin = require('workbox-webpack-plugin')
 const SwRegisterWebpackPlugin = require('sw-register-webpack-plugin')
+const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
+
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -49,8 +51,21 @@ module.exports = {
     }),
     // 通过插件注入生成sw注册脚本
     new SwRegisterWebpackPlugin({
-    version: +new Date()
+      version: +new Date()
     }),
+    // 骨架屏
+    new SkeletonWebpackPlugin({
+      webpackConfig: require('./webpack.skeleton.conf'),
+      router: {
+        mode: 'hash',
+        routes: [
+          {
+            path: '*',
+            skeletonId: 'skeleton'
+          }
+        ]
+      }
+    })
   ],
   module: {
     rules: [

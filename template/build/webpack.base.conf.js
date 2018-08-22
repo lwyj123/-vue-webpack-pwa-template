@@ -92,8 +92,8 @@ module.exports = {
     ]
   },
   // 注入全局mixin
-  sassResources: path.join(__dirname, '../src/styles/mixin.scss'),
-  sassLoader: {
-      data:  path.join(__dirname, '../src/styles/index.scss')
-  },
+  // sassResources: path.join(__dirname, '../src/styles/mixin.scss'),
+  // sassLoader: {
+  //     data:  path.join(__dirname, '../src/styles/index.scss')
+  // },
 }

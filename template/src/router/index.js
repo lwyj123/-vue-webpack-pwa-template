@@ -30,7 +30,7 @@ export const constantRouterMap = [
     children: [{
       path: '/index',
       component: Index,
-      meta: { title: '午安网 - 过你想过的生活' }
+      meta: { title: 'Lwio - 探索世界' }
     }]
   },
   {

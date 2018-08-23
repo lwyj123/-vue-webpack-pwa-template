@@ -15,7 +15,7 @@ import IconSvg from 'components/IconSvg' // svg 组件
 
 // register globally
 Vue.component('icon-svg', IconSvg)
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
 
 // register global utility filters.
 /* eslint import/namespace: ['error', { allowComputed: true }] */

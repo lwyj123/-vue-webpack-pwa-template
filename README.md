@@ -1,4 +1,4 @@
-# vue-webpack-template
+# vue-webpack-pwa-template
 template for lw-cli
 
 

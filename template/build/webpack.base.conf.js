@@ -3,12 +3,6 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
-// PWA part
-const WorkBoxPlugin = require('workbox-webpack-plugin')
-const SwRegisterWebpackPlugin = require('sw-register-webpack-plugin')
-const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
-
-
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -45,27 +39,6 @@ module.exports = {
   externals: {
   },
   plugins: [
-    // 以service-worker.js文件为模板，注入生成service-worker.js
-    new WorkBoxPlugin.InjectManifest({
-      swSrc: path.resolve(__dirname, '../src/service-worker.js')
-    }),
-    // 通过插件注入生成sw注册脚本
-    new SwRegisterWebpackPlugin({
-      version: +new Date()
-    }),
-    // 骨架屏
-    new SkeletonWebpackPlugin({
-      webpackConfig: require('./webpack.skeleton.conf'),
-      router: {
-        mode: 'hash',
-        routes: [
-          {
-            path: '*',
-            skeletonId: 'skeleton'
-          }
-        ]
-      }
-    })
   ],
   module: {
     rules: [

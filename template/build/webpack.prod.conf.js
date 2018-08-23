@@ -11,6 +11,11 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 // var CompressionPlugin = require('compression-webpack-plugin')
 
+// PWA part
+const WorkBoxPlugin = require('workbox-webpack-plugin')
+const SwRegisterWebpackPlugin = require('sw-register-webpack-plugin')
+const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin')
+
 var env = process.env.NODE_ENV === 'production' ? config.build.prodEnv : config.build.sitEnv
 
 function resolveApp (relativePath) {
@@ -114,8 +119,39 @@ var webpackConfig = merge(baseWebpackConfig, {
         from: path.resolve(__dirname, '../static'),
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
+      },
+      {
+        from: path.resolve(__dirname, '../src/manifest.json'),
+        to: config.build.assetsRoot
+      },
+      {
+        from: path.resolve(__dirname, '../src/assets/wuanlife_256.jpg'),
+        to: config.build.assetsRoot
       }
-    ])
+    ]),
+    new WorkBoxPlugin.InjectManifest({
+      swSrc: path.resolve(__dirname, '../src/service-worker.js')
+    }),
+    // 通过插件生成sw生成
+    new SwRegisterWebpackPlugin({
+      version: +new Date()
+    }),
+    new SkeletonWebpackPlugin({
+      webpackConfig: require('./webpack.skeleton.conf'),
+      router: {
+        mode: 'hash',
+        routes: [
+          {
+            path: '/',
+            skeletonId: 'skeleton'
+          },
+          {
+            path: '/detail',
+            skeletonId: 'skeleton_detail'
+          }
+        ]
+      }
+    })
   ]
 })
 /* 开启 gzip 的情况下使用下方的配置 */
